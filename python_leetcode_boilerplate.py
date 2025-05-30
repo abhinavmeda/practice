@@ -1,8 +1,6 @@
 """
-A simple Python program that creates a leetcode solution file
-
+A simple Python program that creates a leetcode solution file.  
 Flags: -f <python_function_signature>
-
 """
 import argparse
 import os
@@ -14,8 +12,7 @@ class Solution:
 
 
 if __name__ == "__main__":
-    sol = Solution()
-        
+    sol = Solution() 
 """
 
 class CreateLeetcodeSolutionFile:
@@ -50,8 +47,3 @@ if __name__ == "__main__":
         leetcode_file.create_file()
     else:
         print("File already exists!")
-
-    
-     
-        
-
