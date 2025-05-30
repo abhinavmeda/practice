@@ -1,32 +1,57 @@
 """
 A simple Python program that creates a leetcode solution file
 
-Flags: --n <name_of_solution>
-Exceptions: Raises file exists exception so a previously existing file doesn't
-            get overwritten. 
+Flags: -f <python_function_signature>
 
 """
 import argparse
 import os
-class FileExistsException(Exception):
-    def __init__(self, message):
-        super().__init__(message)
 
-class CreateLeetcodeFile:
+FILE_CONTENTS = """
+class Solution:
+    {signature}
+        pass
 
-    def __init__(self, file_name: str):
-        self.file_name = file_name
+
+if __name__ == "__main__":
+    sol = Solution()
+        
+"""
+
+class CreateLeetcodeSolutionFile:
+
+    def __init__(self, function_signature: str):
+        
+        self.function_signature = function_signature
+        fss = function_signature.split(" ")
+        
+        file_name = fss[1][:fss[1].index("(")]
+        self.file_name = file_name + ".py"
     
     def check_file_exists(self) -> bool:
         current_dir = os.getcwd()
-        return os.path.isfile(current_dir + f"/{self.file_name}.py")
+        exists = os.path.abspath(current_dir + f"/{self.file_name}")
+        return exists
+    
+    def create_file(self):
+        file_contents = FILE_CONTENTS.format(signature=self.function_signature)
+
+        with open(self.file_name, "w") as f:
+            f.write(file_contents)
 
 if __name__ == "__main__":
      
     parser = argparse.ArgumentParser(description="Create Leetcode solution file in Python")
-    parser.add_argument("-n", required=True, help="Name of leetcode problem")
+    parser.add_argument("-f", help="Function definition of leetcode problem", required=True)
     args = parser.parse_args()
-    print(args.n)
+
+    leetcode_file = CreateLeetcodeSolutionFile(args.f)
+    if leetcode_file.check_file_exists():
+        leetcode_file.create_file()
+    else:
+        print("File already exists!")
+
+    
      
         
 
