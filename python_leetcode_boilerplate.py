@@ -24,7 +24,7 @@ class CreateLeetcodeFile:
 if __name__ == "__main__":
      
     parser = argparse.ArgumentParser(description="Create Leetcode solution file in Python")
-    parser.add_argument("--n", required=True, help="Name of leetcode problem")
+    parser.add_argument("-n", required=True, help="Name of leetcode problem")
     args = parser.parse_args()
     print(args.n)
      
